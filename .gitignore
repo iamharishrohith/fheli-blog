@@ -1,0 +1,42 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Android build outputs and caches
+android/app/build/
+android/app/.cxx/
+android/.gradle/
+android/local.properties
+.gradle/
+
+# iOS build outputs
+ios/build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+DerivedData/
+
+# Large Model weights
+*.onnx
+*.tflite
+karthi/
+Other files/
+
+# System / IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Temp / Lock files
+~$*
+temp_zip/

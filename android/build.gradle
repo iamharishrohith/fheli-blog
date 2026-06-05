@@ -1,0 +1,62 @@
+buildscript {
+    ext {
+        buildToolsVersion = "34.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 34
+        targetSdkVersion = 34
+        ndkVersion = "25.1.8937393"
+        kotlinVersion = "1.9.24"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.5.2")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    }
+}
+subprojects {
+    def configureAndroid = {
+        android {
+            externalNativeBuild {
+                cmake {
+                    version "3.22.1"
+                }
+            }
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+        }
+    }
+    
+    if (plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")) {
+        configureAndroid()
+    } else {
+        plugins.withId("com.android.application") {
+            configureAndroid()
+        }
+        plugins.withId("com.android.library") {
+            configureAndroid()
+        }
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            // All of React Native's binaries are downloaded from a local npm folder
+            url("$rootDir/../node_modules/react-native/android")
+        }
+        maven {
+            // Android JPL and local repositories
+            url("$rootDir/../node_modules/jsc-android/dist")
+        }
+    }
+}

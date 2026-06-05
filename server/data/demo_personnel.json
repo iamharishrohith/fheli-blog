@@ -1,0 +1,16 @@
+[
+  {
+    "id": "DEMO_1780072572801",
+    "full_name": "Harish Rohith S",
+    "employee_code": "RCAS2024BCT122",
+    "department": "Safety Inspection",
+    "role": "Safety Inspector",
+    "phone": "+916379101487",
+    "email": "iamharishrohith@gmail.com",
+    "site_location": "COIMBATORE",
+    "face_photo": "/uploads/faces/DEMO_1780072572801.jpg",
+    "consent": 1,
+    "created_at": 1780072572801,
+    "updated_at": 1780072572801
+  }
+]

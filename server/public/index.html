@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NHAI FieldID Demo Registry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <div class="brand-mark">FI</div>
+      <h1>NHAI FieldID</h1>
+      <p>Hackathon demo data registry</p>
+    </div>
+
+    <nav>
+      <button class="nav-item active" data-panel="registry-panel">Create Data</button>
+      <button class="nav-item" data-panel="personnel-panel">Stored Records</button>
+      <button class="nav-item" data-panel="ledger-panel">Sync Ledger</button>
+    </nav>
+
+    <div class="status-pill">
+      <span></span>
+      Local SQLite Online
+    </div>
+  </aside>
+
+  <main class="workspace">
+    <section class="metrics">
+      <div class="metric">
+        <small>Demo Personnel</small>
+        <strong id="metric-personnel">0</strong>
+      </div>
+      <div class="metric">
+        <small>Captured Faces</small>
+        <strong id="metric-faces">0</strong>
+      </div>
+      <div class="metric">
+        <small>Ledger Syncs</small>
+        <strong id="metric-ledger">0</strong>
+      </div>
+    </section>
+
+    <section class="panel" id="registry-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Create Demo Personnel Data</h2>
+          <p>Use only consent-based team/demo records. This stays in the local SQLite database.</p>
+        </div>
+        <a class="secondary-link" href="/api/personnel/export">Export JSON</a>
+      </div>
+
+      <div class="registry-layout">
+        <form id="personnel-form" class="form-surface">
+          <div class="field-row">
+            <label>
+              Full name
+              <input name="fullName" autocomplete="name" placeholder="Example: Aarav Mehta" required>
+            </label>
+            <label>
+              Employee code
+              <input name="employeeCode" placeholder="NHAI-DEMO-001" required>
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              Department
+              <select name="department" required>
+                <option value="">Select department</option>
+                <option>Site Engineering</option>
+                <option>Safety Inspection</option>
+                <option>Quality Audit</option>
+                <option>Toll Operations</option>
+                <option>Contractor Workforce</option>
+              </select>
+            </label>
+            <label>
+              Role
+              <select name="role" required>
+                <option value="">Select role</option>
+                <option>Field Engineer</option>
+                <option>Safety Inspector</option>
+                <option>Supervisor</option>
+                <option>Survey Operator</option>
+                <option>Demo Participant</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              Phone
+              <input name="phone" inputmode="tel" placeholder="+91 90000 00000">
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" placeholder="demo@fieldid.local">
+            </label>
+          </div>
+
+          <label>
+            Site location
+            <input name="siteLocation" placeholder="Delhi-Dehradun Corridor Package 2" required>
+          </label>
+
+          <label class="consent-line">
+            <input name="consent" type="checkbox" required>
+            I confirm this is consent-based hackathon/demo data.
+          </label>
+
+          <input id="face-photo" name="facePhoto" type="hidden">
+
+          <div class="actions">
+            <button class="primary" type="submit">Store Demo Record</button>
+            <button class="ghost" id="reset-form" type="button">Reset</button>
+          </div>
+
+          <p class="message" id="form-message"></p>
+        </form>
+
+        <div class="camera-surface">
+          <video id="camera-preview" autoplay playsinline muted></video>
+          <canvas id="capture-canvas" width="480" height="360"></canvas>
+          <img id="captured-photo" alt="Captured demo face preview">
+          <div class="camera-actions">
+            <button class="ghost" id="start-camera" type="button">Start Camera</button>
+            <button class="primary" id="capture-face" type="button">Capture Face</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="personnel-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Stored Demo Records</h2>
+          <p>These records are for prototype testing and presentation only.</p>
+        </div>
+        <button class="ghost" id="refresh-personnel" type="button">Refresh</button>
+      </div>
+      <div class="records-grid" id="personnel-cards"></div>
+    </section>
+
+    <section class="panel hidden" id="ledger-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Verification Sync Ledger</h2>
+          <p>Attendance receipts posted by the mobile app appear here.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Personnel</th>
+              <th>Device</th>
+              <th>Score</th>
+              <th>GPS</th>
+              <th>Status</th>
+              <th>Received</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

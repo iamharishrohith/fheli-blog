@@ -1,0 +1,120 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+react {
+    /* Folders */
+    //   The root of your project, i.e. where "package.json" lives. Default is '..'
+    root = file("../..")
+    //   The folder where the react-native NPM package is. Default is ../node_modules/react-native
+    reactNativeDir = file("../../node_modules/react-native")
+    //   The folder where the react-native Codegen package is. Default is ../node_modules/@react-native/codegen
+    codegenDir = file("../../node_modules/@react-native/codegen")
+    //   The cli.js file which is the React Native CLI entrypoint. Default is ../node_modules/react-native/cli.js
+    cliFile = file("../../node_modules/react-native/cli.js")
+    
+    /* Flags */
+    hermesEnabled = true
+}
+
+def enableProguardInReleaseBuilds = true
+def jscFlavor = 'org.webkit:android-jsc:+'
+def hasReleaseSigningConfig =
+        project.hasProperty("NHAI_RELEASE_STORE_FILE") &&
+        project.hasProperty("NHAI_RELEASE_STORE_PASSWORD") &&
+        project.hasProperty("NHAI_RELEASE_KEY_ALIAS") &&
+        project.hasProperty("NHAI_RELEASE_KEY_PASSWORD")
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.nhai.datalake.biometrics"
+    defaultConfig {
+        applicationId "com.nhai.datalake.biometrics"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared"
+                cppFlags "-std=c++17 -Wall"
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/jni/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            if (hasReleaseSigningConfig) {
+                storeFile file(NHAI_RELEASE_STORE_FILE)
+                storePassword NHAI_RELEASE_STORE_PASSWORD
+                keyAlias NHAI_RELEASE_KEY_ALIAS
+                keyPassword NHAI_RELEASE_KEY_PASSWORD
+            } else {
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+        pickFirsts += [
+            'lib/x86/libcrypto.so',
+            'lib/x86_64/libcrypto.so',
+            'lib/armeabi-v7a/libcrypto.so',
+            'lib/arm64-v8a/libcrypto.so',
+            'lib/x86/libssl.so',
+            'lib/x86_64/libssl.so',
+            'lib/armeabi-v7a/libssl.so',
+            'lib/arm64-v8a/libssl.so',
+        ]
+    }
+}
+
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    
+    // Testing libraries
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
