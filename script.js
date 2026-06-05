@@ -323,7 +323,7 @@ async function startWebcam() {
 
             activeFaceMesh.setOptions({
                 maxNumFaces: 1,
-                refineLandmarks: true,
+                refineLandmarks: false,
                 minDetectionConfidence: 0.5,
                 minTrackingConfidence: 0.5
             });
@@ -337,8 +337,8 @@ async function startWebcam() {
                     await activeFaceMesh.send({ image: webcamVideo });
                 }
             },
-            width: 640,
-            height: 640
+            width: 480,
+            height: 480
         });
 
         activeCamera.start();
