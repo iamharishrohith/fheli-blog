@@ -1041,3 +1041,23 @@ tr:hover td {
     }
 }
 
+.node-svg-icon {
+    margin: 0.5rem auto 1rem auto;
+    display: block;
+    transition: transform var(--transition-speed);
+    stroke: var(--accent-blue);
+}
+
+.flowcharts-container .flowchart-block:nth-child(2) .node-svg-icon {
+    stroke: var(--accent-green);
+}
+
+.flowcharts-container .flowchart-block:nth-child(3) .node-svg-icon {
+    stroke: var(--accent-purple);
+}
+
+.flowchart-node:hover .node-svg-icon {
+    transform: scale(1.15);
+}
+
+
