@@ -20,6 +20,7 @@
             <a href="#overview">Overview</a>
             <a href="#demo">Liveness Demo</a>
             <a href="#features">Pillars</a>
+            <a href="#architecture">Architecture</a>
             <a href="#blog">Blog</a>
             <a href="#benchmarks">Specs</a>
             <a href="FheliProposal.zip" class="btn-download-nav" download>Download ZIP</a>
@@ -148,6 +149,200 @@
                     <h3>Pillar IV: Decentralized zk-SNARK Proofs</h3>
                     <p>Generates 256-byte Groth16 proofs on-device to verify shift times and geofenced site boundaries offline. Only the cryptographic proof is uploaded to AWS, protecting worker privacy.</p>
                     <code class="math-code">Proof: G16(GPS, ID, Time) => AWS</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Flowcharts Section -->
+        <section id="architecture" class="flowcharts-section">
+            <div class="section-header">
+                <h2>Visual System Architecture</h2>
+                <p>Interactive flowcharts representing the data flow, cryptographic barriers, and edge logic of the Fheli Sovereign architecture.</p>
+            </div>
+
+            <div class="flowcharts-container">
+                <!-- Flowchart 1: End-to-End Pipeline -->
+                <div class="flowchart-block">
+                    <h3>💡 1. End-to-End Authentication Pipeline</h3>
+                    <p class="flowchart-desc">How a worker check-in is initiated, analyzed for liveness entirely offline, matched securely in homomorphic space, and verified on AWS.</p>
+                    
+                    <div class="flowchart-nodes">
+                        <!-- Connector SVGs -->
+                        <svg class="flowchart-svg-connector">
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line-glow" />
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line" />
+                        </svg>
+
+                        <!-- Node 1 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">1</span>
+                            <div class="node-icon">📷</div>
+                            <span class="zone-badge zone-offline">Offline Camera</span>
+                            <h4>Biometric Capture</h4>
+                            <p>Capture face video at 30 FPS under dynamic display glow.</p>
+                        </div>
+
+                        <!-- Node 2 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">2</span>
+                            <div class="node-icon">🛡️</div>
+                            <span class="zone-badge zone-secure">Liveness Guard</span>
+                            <h4>Cornea & Flow Check</h4>
+                            <p>Verify 3D corneal geometry and micro-tremor parallax flow.</p>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">3</span>
+                            <div class="node-icon">🧬</div>
+                            <span class="zone-badge zone-secure">Embedding</span>
+                            <h4>Landmark Mesh</h4>
+                            <p>MediaPipe landmarks map and MobileFaceNet vector generation.</p>
+                        </div>
+
+                        <!-- Node 4 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">4</span>
+                            <div class="node-icon">🔒</div>
+                            <span class="zone-badge zone-secure">FHE Space</span>
+                            <h4>CKKS Encryption</h4>
+                            <p>Encrypt vector instantly. Decryption is never run on-device.</p>
+                        </div>
+
+                        <!-- Node 5 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">5</span>
+                            <div class="node-icon">✍️</div>
+                            <span class="zone-badge zone-secure">zk-SNARK</span>
+                            <h4>Local Ledger Sign</h4>
+                            <p>Perform encrypted cosine match and sign local zk-SNARK proof.</p>
+                        </div>
+
+                        <!-- Node 6 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">6</span>
+                            <div class="node-icon">☁️</div>
+                            <span class="zone-badge zone-cloud">AWS Sync</span>
+                            <h4>AWS Datalake Sync</h4>
+                            <p>Upload 256-byte ZK-Proof to cloud ledger when online.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flowchart 2: Corneal Color-Glow -->
+                <div class="flowchart-block">
+                    <h3>👁️ 2. Passive Corneal Color-Glow Liveness Loop</h3>
+                    <p class="flowchart-desc">Deflecting screen playbacks and high-res print photo cheats using a high-frequency chromatic corneal reflection check.</p>
+                    
+                    <div class="flowchart-nodes">
+                        <svg class="flowchart-svg-connector">
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line-glow" style="stroke: #059669;" />
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line" style="stroke: #059669;" />
+                        </svg>
+
+                        <!-- Node 1 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">1</span>
+                            <div class="node-icon">📱</div>
+                            <span class="zone-badge zone-offline">Display</span>
+                            <h4>Coded Color Flash</h4>
+                            <p>Screen flashes sequences (G &rarr; B &rarr; R) at 100ms intervals.</p>
+                        </div>
+
+                        <!-- Node 2 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">2</span>
+                            <div class="node-icon">🔍</div>
+                            <span class="zone-badge zone-offline">Sensor</span>
+                            <h4>Reflection Capture</h4>
+                            <p>Track iris and specular reflection highlights on the outer cornea.</p>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">3</span>
+                            <div class="node-icon">📐</div>
+                            <span class="zone-badge zone-secure">Processor</span>
+                            <h4>Normal Vector Map</h4>
+                            <p>Reconstruct 3D curved coordinates using spherical normal maps.</p>
+                        </div>
+
+                        <!-- Node 4 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">4</span>
+                            <div class="node-icon">⚖️</div>
+                            <span class="zone-badge zone-secure">Classifier</span>
+                            <h4>Chromatic Match</h4>
+                            <p>Validate if reflection color sequence matches screen flash timing.</p>
+                        </div>
+
+                        <!-- Node 5 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">5</span>
+                            <div class="node-icon">✅</div>
+                            <span class="zone-badge zone-secure">Verdict</span>
+                            <h4>Real Cornea Check</h4>
+                            <p>Confirm curved geometry. Reject flat papers or display streams.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flowchart 3: zk-SNARK -->
+                <div class="flowchart-block">
+                    <h3>🔑 3. Decentralized zk-SNARK Attendance Log</h3>
+                    <p class="flowchart-desc">Verifying that check-ins occur at specific GPS and timing boundaries without ever exposing raw geofence data or worker IDs to cloud administrators.</p>
+                    
+                    <div class="flowchart-nodes">
+                        <svg class="flowchart-svg-connector">
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line-glow" style="stroke: #7c3aed;" />
+                            <line x1="5%" y1="50%" x2="95%" y2="50%" class="connector-line" style="stroke: #7c3aed;" />
+                        </svg>
+
+                        <!-- Node 1 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">1</span>
+                            <div class="node-icon">📍</div>
+                            <span class="zone-badge zone-offline">Inputs</span>
+                            <h4>Geofence & ID Params</h4>
+                            <p>Load raw coordinates (GPS), timestamp, and supervisor ID on-device.</p>
+                        </div>
+
+                        <!-- Node 2 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">2</span>
+                            <div class="node-icon">⚙️</div>
+                            <span class="zone-badge zone-secure">Compiler</span>
+                            <h4>zk-Compiler (snarkjs)</h4>
+                            <p>Feed inputs into pre-compiled zero-knowledge arithmetic circuit.</p>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">3</span>
+                            <div class="node-icon">📜</div>
+                            <span class="zone-badge zone-secure">Signature</span>
+                            <h4>Groth16 Proof (256B)</h4>
+                            <p>Generate cryptographic proof of attendance validity.</p>
+                        </div>
+
+                        <!-- Node 4 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">4</span>
+                            <div class="node-icon">☁️</div>
+                            <span class="zone-badge zone-cloud">Network</span>
+                            <h4>Ledger Upload</h4>
+                            <p>Upload only the 256-byte signature. GPS coordinates remain private.</p>
+                        </div>
+
+                        <!-- Node 5 -->
+                        <div class="flowchart-node">
+                            <span class="node-num">5</span>
+                            <div class="node-icon">🏛️</div>
+                            <span class="zone-badge zone-cloud">AWS Ledger</span>
+                            <h4>Public Verification</h4>
+                            <p>AWS smart contracts verify proof signature against public parameters.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

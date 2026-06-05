@@ -858,3 +858,186 @@ tr:hover td {
     color: #ffffff;
     box-shadow: 0 4px 20px var(--accent-blue-glow);
 }
+
+/* Flowcharts Section */
+.flowcharts-section {
+    padding: 6rem 8%;
+    background: rgba(241, 245, 249, 0.35);
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.flowcharts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.flowchart-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+.flowchart-block h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flowchart-block p.flowchart-desc {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Pipeline Flow layout */
+.flowchart-nodes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    gap: 1.5rem;
+}
+
+/* Connecting Line */
+.flowchart-svg-connector {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.flowchart-node {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: all var(--transition-speed);
+}
+
+.flowchart-node:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.08);
+    border-color: var(--accent-blue-glow);
+}
+
+.node-num {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: var(--accent-blue);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--accent-blue-glow);
+}
+
+.node-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.flowchart-node h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+}
+
+.flowchart-node p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+/* Badge for Offline vs Cloud */
+.zone-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.5px;
+}
+
+.zone-offline {
+    background: rgba(217, 119, 6, 0.08);
+    color: var(--accent-amber);
+}
+
+.zone-secure {
+    background: rgba(5, 150, 105, 0.08);
+    color: var(--accent-green);
+}
+
+.zone-cloud {
+    background: rgba(124, 58, 237, 0.08);
+    color: var(--accent-purple);
+}
+
+/* Animated connector path */
+.connector-line {
+    stroke: var(--accent-blue);
+    stroke-width: 2;
+    stroke-dasharray: 6, 6;
+    animation: dash 30s linear infinite;
+    opacity: 0.6;
+}
+
+.connector-line-glow {
+    stroke: var(--accent-blue);
+    stroke-width: 4;
+    opacity: 0.15;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* Responsive Flowchart */
+@media (max-width: 900px) {
+    .flowchart-nodes {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+    .flowchart-svg-connector {
+        display: none;
+    }
+    .flowchart-node {
+        width: 100%;
+        max-width: 450px;
+    }
+}
+
